@@ -18,6 +18,8 @@ var VueComponent  = Vue.extend({
           '</ul>' +
       '</nav>',
 
+  props: ['user'],  
+
   data: function() {
     return {
       pagination: {
@@ -61,19 +63,16 @@ var VueComponent  = Vue.extend({
   },
 
   methods : {
+    getUsers: function(page){
+      this.$http.get('/user/api?page='+page).then((response) => {
+        this.$set('pagination', response.data);
+      });
+    },
 
-        getUsers: function(page){
-          this.$http.get('/user/api?page='+page).then((response) => {
-            /*this.$set('users', response.data.data);*/
-            this.$set('pagination', response.data);
-          });
-        },
-
-      changePage: function (page) {
-          this.pagination.current_page = page;
-          this.getUsers(page);
-      }
-
+    changePage: function (page) {
+      this.pagination.current_page = page;
+      this.getUsers(page);
+    }      
   }
 
 })
@@ -96,50 +95,16 @@ new Vue({
     offset: 4,
   },
 
-  /*computed: {
-        isActived: function () {
-            return this.pagination.current_page;
-        },
-        pagesNumber: function () {
-            if (!this.pagination.to) {
-                return [];
-            }
-            var from = this.pagination.current_page - this.offset;
-            if (from < 1) {
-                from = 1;
-            }
-            var to = from + (this.offset * 2);
-            if (to >= this.pagination.last_page) {
-                to = this.pagination.last_page;
-            }
-            var pagesArray = [];
-            while (from <= to) {
-                pagesArray.push(from);
-                from++;
-            }
-            return pagesArray;
-        }
-    },
-
-*/  
   ready : function(){
   		this.getUsers(this.pagination.current_page);
   },
 
   methods : {
-
         getUsers: function(page){
           this.$http.get('/user/api?page='+page).then((response) => {
             this.$set('users', response.data.data);
-            /*this.$set('pagination', response.data);*/
           });
         },
-
-      /*changePage: function (page) {
-          this.pagination.current_page = page;
-          this.getUsers(page);
-      }*/
-
   }
 
 });
