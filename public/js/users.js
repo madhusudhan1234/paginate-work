@@ -1,11 +1,3 @@
-/*var MyComponent = Vue.extend({
-  props: ['hey'],
-
-  template: '<div>Hello {{ hey }} </div>'
-})
-// register
-Vue.component('my-component', MyComponent)
-*/
 var VueComponent  = Vue.extend({
   template: 
         '<nav>' +
