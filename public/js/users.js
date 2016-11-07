@@ -18,9 +18,23 @@ var VueComponent  = Vue.extend({
           '</ul>' +
       '</nav>',
 
-  props: ['user'],  
+   props: {
+        pagination: {
+            type: Object,
+            required: true
+        },
+        callback: {
+            type: Function,
+            required: true
+        },
+        offset: {
+            type: Number,
+            default: 4
+        }
+    },
 
   data: function() {
+
     return {
       pagination: {
         total: 0, 
@@ -34,9 +48,6 @@ var VueComponent  = Vue.extend({
   },
 
   computed: {
-        isActived: function () {
-            return this.pagination.current_page;
-        },
         pagesNumber: function () {
             if (!this.pagination.to) {
                 return [];
@@ -50,28 +61,16 @@ var VueComponent  = Vue.extend({
                 to = this.pagination.last_page;
             }
             var pagesArray = [];
-            while (from <= to) {
+            for (from = 1; from <= to; from++) {
                 pagesArray.push(from);
-                from++;
             }
             return pagesArray;
         }
     },
 
-  ready : function(){
-      this.getUsers(this.pagination.current_page);
-  },
-
   methods : {
-    getUsers: function(page){
-      this.$http.get('/user/api?page='+page).then((response) => {
-        this.$set('pagination', response.data);
-      });
-    },
-
     changePage: function (page) {
       this.pagination.current_page = page;
-      this.getUsers(page);
     }      
   }
 
@@ -103,8 +102,8 @@ new Vue({
         getUsers: function(page){
           this.$http.get('/user/api?page='+page).then((response) => {
             this.$set('users', response.data.data);
+            this.$set('pagination', response.data);
           });
         },
   }
-
 });
