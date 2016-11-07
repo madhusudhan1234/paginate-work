@@ -23,30 +23,11 @@ var VueComponent  = Vue.extend({
             type: Object,
             required: true
         },
-        callback: {
-            type: Function,
-            required: true
-        },
         offset: {
             type: Number,
             default: 4
         }
     },
-
-  data: function() {
-
-    return {
-      pagination: {
-        total: 0, 
-        per_page: 2,
-        from: 1, 
-        to: 0,
-        current_page: 1
-      },
-      offset: 4,
-    }
-  },
-
   computed: {
         pagesNumber: function () {
             if (!this.pagination.to) {
@@ -67,16 +48,17 @@ var VueComponent  = Vue.extend({
             return pagesArray;
         }
     },
-
   methods : {
     changePage: function (page) {
       this.pagination.current_page = page;
     }      
   }
-
 })
 
 Vue.component('vue-pagination', VueComponent);
+
+
+
 
 new Vue({
 

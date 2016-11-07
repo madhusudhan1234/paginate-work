@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Users List</title>
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css">
-</head>
-<body>
+@extends('layouts.app')
 
+@section('content')
 	<div class="container" id="users">
-
-
 		<!-- Item Listing -->
 		<table class="table table-bordered">
 			<tr>
@@ -30,5 +23,4 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/vue.resource/0.9.3/vue-resource.min.js"></script>
 	<script type="text/javascript" src="/js/users.js"></script>
-</body>
-</html>
+@endsection
