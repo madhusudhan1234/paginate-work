@@ -24,11 +24,8 @@
         @yield('content')
         
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.0.3/vue-resource.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/vue.resource/0.9.3/vue-resource.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/users.js') }}"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@
                     <div class="panel-heading">Example Component</div>
 
                     <div class="panel-body">
-                        I'm an example component!
+                       {{ message }}
                     </div>
                 </div>
             </div>
@@ -16,8 +16,10 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component ready.')
+        data() {
+           return{
+            message: 'Hello Laracasts User'
+           }
         }
     }
 </script>
