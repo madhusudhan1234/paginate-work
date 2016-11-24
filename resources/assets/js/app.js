@@ -30,11 +30,11 @@ const  app = new Vue({
         this.getUsers(this.pagination.current_page);
     },
     methods: {
-        getUsers: function(page) {
+        getUsers(page) {
             var _this = this;
             $.ajax({
                 url: '/user/api?page='+page,
-                success: function (response) {
+                success: (response) => {
                    _this.users = response.data;
                    _this.pagination = response;
                 }
