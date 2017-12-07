@@ -32,17 +32,17 @@
         if (!this.pagination.to) {
           return [];
         }
-        var from = this.pagination.current_page - this.offset;
+        let from = this.pagination.current_page - this.offset;
         if (from < 1) {
           from = 1;
         }
-        var to = from + (this.offset * 2);
+        let to = from + (this.offset * 2);
         if (to >= this.pagination.last_page) {
           to = this.pagination.last_page;
         }
-        var pagesArray = [];
-        for (from = 1; from <= to; from++) {
-          pagesArray.push(from);
+        let pagesArray = [];
+        for (let page = from; page <= to; page++) {
+          pagesArray.push(page);
         }
           return pagesArray;
       }
