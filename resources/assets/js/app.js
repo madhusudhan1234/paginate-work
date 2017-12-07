@@ -1,23 +1,19 @@
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
 require('./bootstrap');
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
 
-Vue.component('vue-pagination', require('./components/Pagination.vue'));
+import VuePagination from './components/Pagination.vue';
+import axios from 'axios';
+
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};
+
+
 const  app = new Vue({
     el: '#app',
     data: {
-        users: [],
-        counter: 0,
-        pagination: {
+        users: {
             total: 0,
             per_page: 2,
             from: 1,
@@ -26,19 +22,21 @@ const  app = new Vue({
         },
         offset: 4,
     },
-    mounted : function() {
-        this.getUsers(this.pagination.current_page);
+    mounted() {
+        this.getUsers();
+    },
+    components: {
+        VuePagination,
     },
     methods: {
-        getUsers(page) {
-            var _this = this;
-            $.ajax({
-                url: '/user/api?page='+page,
-                success: (response) => {
-                   _this.users = response.data;
-                   _this.pagination = response;
-                }
-            });
+        getUsers() {
+            axios.get(`/user/api?page=${this.users.current_page}`)
+                .then((response) => {
+                    this.users = response.data;
+                })
+                .catch(() => {
+                    console.log('handle server error from here');
+                });
         }
     }
 });

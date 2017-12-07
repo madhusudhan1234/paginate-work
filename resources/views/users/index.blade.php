@@ -7,14 +7,14 @@
         <th>Email</th>
         <th>Created At</th>
       </tr>
-      <tr v-for="user in users">
+      <tr v-for="user in users.data">
         <td>@{{ user.name }}</td>
         <td>@{{ user.email }}</td>
         <td>@{{ user.created_at }}</td>
       </tr>
     </table>
-    <vue-pagination  v-bind:pagination="pagination"
-                     v-on:click.native="getUsers(pagination.current_page)"
+    <vue-pagination  :pagination="users"
+                     @paginate="getUsers()"
                      :offset="4">
     </vue-pagination>
     </div>
