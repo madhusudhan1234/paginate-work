@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: paginate_app
+
+    ports:
+      - "9090:80"
+
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:9090
+
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: homestead
+      DB_USERNAME: homestead
+      DB_PASSWORD: secret
+
+    depends_on:
+      - mysql
+
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor
+
+  mysql:
+    image: mysql:5.7
+
+    container_name: paginate_mysql
+
+    ports:
+      - "3303:3306"
+
+    environment:
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
